@@ -157,10 +157,11 @@ export default class ClapprImaPlugin extends UICorePlugin {
 
   _onCoreReady() {
     // Since Clappr 0.2.84, "CORE_READY" event is trigerred after container changed
-    this._initPlugin()
-
-    // Restore autoplay (if previously enabled)
-    this._coreAutoplay && (this.core._options.autoPlay = true)
+    if(this._config.doPreroll) {
+      this._initPlugin()
+      // Restore autoplay (if previously enabled)
+      this._coreAutoplay && (this.core._options.autoPlay = true)
+    }
   }
 
   _onResize(evt) {

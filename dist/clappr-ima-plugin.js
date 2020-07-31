@@ -1612,7 +1612,7 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
     key: "_buildCustomParams",
     value: function _buildCustomParams() {
       return '&cust_params=' + Object.keys(this.options.imaPlugin.customAdParams).map(function (key) {
-        return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
+        return encodeURIComponent(key) + '=' + encodeURIComponent(this.options.imaPlugin.customAdParams[key]);
       }).join('&');
     }
   }, {

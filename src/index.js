@@ -177,10 +177,11 @@ export default class ClapprImaPlugin extends UICorePlugin {
   }
 
   _buildCustomParams() {
+    const customParams = this.options.imaPlugin.customAdParams
     return '&cust_params=' + 
-        Object.keys(this.options.imaPlugin.customAdParams).map(function(key) {
+        Object.keys(customParams).map(function(key) {
             return encodeURIComponent(key) + '=' +
-                encodeURIComponent(this.options.imaPlugin.customAdParams[key]);
+                encodeURIComponent(customParams[key]);
         }).join('&');
   }
 

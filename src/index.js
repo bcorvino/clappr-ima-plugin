@@ -189,6 +189,7 @@ export default class ClapprImaPlugin extends UICorePlugin {
   }
 
   _initPlugin() {
+    console.info('initPlugin', this.options.imaPlugin);
     // Build ad player configuration
     let config = this.__config.imaAdPlayer || {tag: false}
 
@@ -212,8 +213,9 @@ export default class ClapprImaPlugin extends UICorePlugin {
 
     if (this.options.imaPlugin.customAdParams) {
       config.tag += this._buildCustomParams();
-      console.info("finalTag::", config.tag);
     }
+
+    console.info('finalTag', config.tag);
 
 
     // Attempt to get "error screen" core plugin

@@ -1625,7 +1625,8 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
     value: function _initPlugin() {
       var _this3 = this;
 
-      // Build ad player configuration
+      console.info('initPlugin', this.options.imaPlugin); // Build ad player configuration
+
       var config = this.__config.imaAdPlayer || {
         tag: false
       };
@@ -1648,9 +1649,9 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
 
       if (this.options.imaPlugin.customAdParams) {
         config.tag += this._buildCustomParams();
-        console.info("finalTag::", config.tag);
-      } // Attempt to get "error screen" core plugin
+      }
 
+      console.info('finalTag', config.tag); // Attempt to get "error screen" core plugin
 
       this._errorScreenPlugin = this.core.getPlugin('error_screen'); // Attempt to get "poster" container plugin
 

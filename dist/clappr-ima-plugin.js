@@ -1646,7 +1646,7 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
         return;
       }
 
-      if (this._config.customAdParams) {
+      if (this.options.imaPlugin.customAdParams) {
         config.tag += this._buildCustomParams();
         console.info("finalTag::", config.tag);
       } // Attempt to get "error screen" core plugin

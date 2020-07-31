@@ -210,7 +210,7 @@ export default class ClapprImaPlugin extends UICorePlugin {
       return
     }
 
-    if (this._config.customAdParams) {
+    if (this.options.imaPlugin.customAdParams) {
       config.tag += this._buildCustomParams();
       console.info("finalTag::", config.tag);
     }

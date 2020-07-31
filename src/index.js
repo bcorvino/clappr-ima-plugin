@@ -34,7 +34,9 @@ export default class ClapprImaPlugin extends UICorePlugin {
       this.listenTo(this.core.mediaControl, Events.MEDIACONTROL_CONTAINERCHANGED, this._onContainerChanged)
     }
 
-    this.listenTo(this.core, Events.CORE_READY, this._onCoreReady)
+    if(this._config.doPreroll) {
+      this.listenTo(this.core, Events.CORE_READY, this._onCoreReady)
+    }
     this.listenTo(this.core, Events.CORE_RESIZE, this._onResize)
   }
 
@@ -157,11 +159,10 @@ export default class ClapprImaPlugin extends UICorePlugin {
 
   _onCoreReady() {
     // Since Clappr 0.2.84, "CORE_READY" event is trigerred after container changed
-    if(this._config.doPreroll) {
-      this._initPlugin()
-      // Restore autoplay (if previously enabled)
-      this._coreAutoplay && (this.core._options.autoPlay = true)
-    }
+    this._initPlugin()
+
+    // Restore autoplay (if previously enabled)
+    this._coreAutoplay && (this.core._options.autoPlay = true)
   }
 
   _onResize(evt) {
@@ -175,9 +176,22 @@ export default class ClapprImaPlugin extends UICorePlugin {
     this._isNonLinear = false
   }
 
+  _buildCustomParams() {
+    return '&cust_params=' + 
+        Object.keys(this._config.customAdParams).map(function(key) {
+            return encodeURIComponent(key) + '=' +
+                encodeURIComponent(json[key]);
+        }).join('&');
+  }
+
+  updateCustomAdParams(pars) {
+    this._config.customAdParams = pars;
+  }
+
   _initPlugin() {
     // Build ad player configuration
     let config = this.__config.imaAdPlayer || {tag: false}
+
     config.video = this.__playback.el
     config.displayContainer = this._adContainer
 
@@ -195,6 +209,12 @@ export default class ClapprImaPlugin extends UICorePlugin {
 
       return
     }
+
+    if (this._config.customAdParams) {
+      config.tag += this._buildCustomParams();
+      console.info("finalTag::", config.tag);
+    }
+
 
     // Attempt to get "error screen" core plugin
     this._errorScreenPlugin = this.core.getPlugin('error_screen')

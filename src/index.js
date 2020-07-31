@@ -34,7 +34,7 @@ export default class ClapprImaPlugin extends UICorePlugin {
       this.listenTo(this.core.mediaControl, Events.MEDIACONTROL_CONTAINERCHANGED, this._onContainerChanged)
     }
 
-    if(this._config.doPreroll) {
+    if(this.options.imaPlugin.doPreroll) {
       this.listenTo(this.core, Events.CORE_READY, this._onCoreReady)
     }
     this.listenTo(this.core, Events.CORE_RESIZE, this._onResize)
@@ -178,14 +178,14 @@ export default class ClapprImaPlugin extends UICorePlugin {
 
   _buildCustomParams() {
     return '&cust_params=' + 
-        Object.keys(this._config.customAdParams).map(function(key) {
+        Object.keys(this.options.imaPlugin.customAdParams).map(function(key) {
             return encodeURIComponent(key) + '=' +
                 encodeURIComponent(json[key]);
         }).join('&');
   }
 
   updateCustomAdParams(pars) {
-    this._config.customAdParams = pars;
+    this.options.imaPlugin.customAdParams = pars;
   }
 
   _initPlugin() {

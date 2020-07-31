@@ -1516,7 +1516,7 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
         this.listenTo(this.core.mediaControl, _clappr.Events.MEDIACONTROL_CONTAINERCHANGED, this._onContainerChanged);
       }
 
-      if (this._config.doPreroll) {
+      if (this.options.imaPlugin.doPreroll) {
         this.listenTo(this.core, _clappr.Events.CORE_READY, this._onCoreReady);
       }
 
@@ -1611,14 +1611,14 @@ var ClapprImaPlugin = /*#__PURE__*/function (_UICorePlugin) {
   }, {
     key: "_buildCustomParams",
     value: function _buildCustomParams() {
-      return '&cust_params=' + Object.keys(this._config.customAdParams).map(function (key) {
+      return '&cust_params=' + Object.keys(this.options.imaPlugin.customAdParams).map(function (key) {
         return encodeURIComponent(key) + '=' + encodeURIComponent(json[key]);
       }).join('&');
     }
   }, {
     key: "updateCustomAdParams",
     value: function updateCustomAdParams(pars) {
-      this._config.customAdParams = pars;
+      this.options.imaPlugin.customAdParams = pars;
     }
   }, {
     key: "_initPlugin",
